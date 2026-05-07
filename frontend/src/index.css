@@ -1,0 +1,173 @@
+@import url("https://rsms.me/inter/inter.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ */
+/* Color tokens                                                        */
+/* Values are space-separated RGB so Tailwind's <alpha-value> works.   */
+/* ------------------------------------------------------------------ */
+:root {
+  /* Light theme (default) */
+  --c-bg: 250 251 253;
+  --c-surface: 255 255 255;
+  --c-surface-2: 244 245 248;
+  --c-border: 226 229 234;
+  --c-border-strong: 200 205 213;
+  --c-muted: 99 105 116;
+  --c-muted-2: 148 154 165;
+  --c-text: 17 18 22;
+
+  --c-accent: 108 77 255;
+  --c-accent-50: 244 240 255;
+  --c-accent-400: 138 114 255;
+  --c-accent-500: 108 77 255;
+  --c-accent-600: 91 61 235;
+
+  --c-success: 5 150 105;
+  --c-warning: 217 119 6;
+  --c-danger: 220 38 38;
+
+  --shadow-card: 0 1px 0 0 rgba(0, 0, 0, 0.02) inset,
+    0 1px 2px 0 rgba(15, 23, 42, 0.04),
+    0 8px 24px -16px rgba(15, 23, 42, 0.08);
+
+  --bg-glow-1: rgba(108, 77, 255, 0.10);
+  --bg-glow-2: rgba(5, 150, 105, 0.05);
+}
+
+.dark {
+  /* Dark theme */
+  --c-bg: 8 9 11;
+  --c-surface: 15 16 20;
+  --c-surface-2: 21 23 29;
+  --c-border: 29 32 39;
+  --c-border-strong: 42 46 56;
+  --c-muted: 139 144 156;
+  --c-muted-2: 100 104 116;
+  --c-text: 231 233 238;
+
+  --c-accent: 124 92 255;
+  --c-accent-50: 243 240 255;
+  --c-accent-400: 156 131 255;
+  --c-accent-500: 124 92 255;
+  --c-accent-600: 94 61 255;
+
+  --c-success: 16 185 129;
+  --c-warning: 245 158 11;
+  --c-danger: 239 68 68;
+
+  --shadow-card: 0 1px 0 0 rgba(255, 255, 255, 0.03) inset,
+    0 8px 24px -12px rgba(0, 0, 0, 0.5);
+
+  --bg-glow-1: rgba(124, 92, 255, 0.08);
+  --bg-glow-2: rgba(16, 185, 129, 0.04);
+}
+
+@layer base {
+  html {
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "cv11", "ss01", "ss03";
+  }
+  html, body, #root {
+    height: 100%;
+  }
+  body {
+    @apply bg-bg text-text antialiased transition-colors duration-200;
+    background-image:
+      radial-gradient(ellipse at top, var(--bg-glow-1), transparent 60%),
+      radial-gradient(ellipse at bottom right, var(--bg-glow-2), transparent 60%);
+    background-attachment: fixed;
+  }
+  ::selection {
+    @apply bg-accent/40 text-white;
+  }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--c-border));
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--c-border-strong));
+    background-clip: content-box;
+  }
+  h1, h2, h3 { letter-spacing: -0.015em; }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-sm font-medium
+           border border-border bg-surface-2 hover:bg-border hover:border-border-strong text-text
+           transition-all duration-150 disabled:opacity-50 disabled:pointer-events-none
+           focus:outline-none focus:ring-2 focus:ring-accent/40 focus:ring-offset-0;
+  }
+  .btn-primary {
+    @apply bg-gradient-to-b from-accent-400 to-accent-600 border-accent-500 hover:from-accent-400 hover:to-accent-500
+           text-white shadow-glow;
+  }
+  .btn-ghost {
+    @apply bg-transparent border-transparent hover:bg-surface-2 hover:border-border;
+  }
+  .btn-danger {
+    @apply border-danger/40 text-danger bg-danger/5 hover:bg-danger/10 hover:border-danger/60;
+  }
+  .btn-sm {
+    @apply px-2.5 py-1.5 text-xs rounded-md;
+  }
+  .btn-icon {
+    @apply h-8 w-8 p-0 rounded-lg;
+  }
+
+  .input {
+    @apply w-full rounded-lg bg-surface border border-border px-3.5 py-2.5 text-sm text-text
+           placeholder:text-muted-2 outline-none transition-all duration-150
+           focus:border-accent/60 focus:ring-2 focus:ring-accent/20;
+  }
+  .label {
+    @apply block text-xs font-medium text-muted tracking-wide;
+  }
+  .field-help {
+    @apply text-xs text-muted-2 mt-1.5;
+  }
+
+  .card {
+    @apply rounded-xl border border-border bg-surface shadow-card;
+  }
+  .card-hover {
+    @apply transition-all duration-150 hover:border-border-strong hover:bg-surface-2;
+  }
+  .section-title {
+    @apply text-sm font-semibold text-text;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1.5 rounded-md px-2 py-0.5 text-[11px] font-medium border;
+  }
+  .badge-neutral { @apply bg-surface-2 border-border text-muted; }
+  .badge-accent  { @apply bg-accent/10  border-accent/30  text-accent-500 dark:text-accent-400; }
+  .badge-success { @apply bg-success/10 border-success/30 text-success; }
+  .badge-warning { @apply bg-warning/10 border-warning/30 text-warning; }
+  .badge-danger  { @apply bg-danger/10  border-danger/30  text-danger; }
+
+  .skeleton {
+    @apply rounded-md bg-gradient-to-r from-surface-2 via-border to-surface-2
+           bg-[length:200%_100%] animate-shimmer;
+  }
+
+  .divider { @apply h-px bg-border; }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .grid-bg {
+    background-image:
+      linear-gradient(rgb(var(--c-text) / 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--c-text) / 0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
+    background-position: -1px -1px;
+  }
+}
