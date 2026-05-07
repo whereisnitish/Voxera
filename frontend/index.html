@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voxera</title>
+    <script>
+      // No-flash theme bootstrap — runs before any CSS paints
+      (function () {
+        try {
+          var v = localStorage.getItem("voxera_theme");
+          var sys = window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+          var resolved = v === "light" || v === "dark" ? v : sys;
+          var el = document.documentElement;
+          if (resolved === "dark") el.classList.add("dark");
+          el.style.colorScheme = resolved;
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
